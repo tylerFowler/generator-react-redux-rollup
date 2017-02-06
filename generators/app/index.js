@@ -22,22 +22,29 @@ module.exports = class GeneratorReactReduxRollup extends Generator {
   }
 
   writing() {
+    this.fs.copyTpl(
+      this.templatePath('package.json'),
+      this.destinationPath('package.json'),
+      { appName: this.props.appName }
+    );
+
     this.writeDotfiles();
+    this.writeProjectBoilerplate();
+    this.writeBuildSystem();
   }
 
   install() {
     this.installDependencies({ bower: false });
   }
 
+  end() {
+    yosay(chalk.green('All done! Run `gulp:build` to build the application.'));
+  }
+
   writeDotfiles() {
     this.fs.copy(
       this.templatePath('.editorconfig'),
       this.destinationPath('.editorconfig')
-    );
-
-    this.fs.copy(
-      this.templatePath('.babelrc'),
-      this.destinationPath('.babelrc')
     );
 
     this.fs.copy(
@@ -50,6 +57,11 @@ module.exports = class GeneratorReactReduxRollup extends Generator {
     this.fs.copy(
       this.templatePath('app/index.js'),
       this.destinationPath('app/index.js')
+    );
+
+    this.fs.copy(
+      this.templatePath('app/store.js'),
+      this.destinationPath('app/store.js')
     );
 
     this.fs.copy(
@@ -82,6 +94,18 @@ module.exports = class GeneratorReactReduxRollup extends Generator {
     this.fs.copy(
       this.templatePath('.gitkeep'),
       this.destinationPath('app/reducers/.gitkeep')
+    );
+  }
+
+  writeBuildSystem() {
+    this.fs.copy(
+      this.templatePath('.babelrc'),
+      this.destinationPath('.babelrc')
+    );
+
+    this.fs.copy(
+      this.templatePath('gulpfile.js'),
+      this.destinationPath('gulpfile.js')
     );
   }
 };
