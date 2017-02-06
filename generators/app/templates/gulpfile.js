@@ -12,6 +12,20 @@ const commonjs = require('rollup-plugin-commonjs');
 
 const env = JSON.stringify(process.env.NODE_ENV || 'development');
 
+// we must do this because the React libraries use object properties
+// to export things, see this for more information:
+// https://github.com/rollup/rollup-plugin-commonjs#custom-named-exports
+const reactNamedExports = {
+  'node_modules/react/react.js': [
+    'Children', 'Component', 'PureComponent', 'createElement', 'cloneElement',
+    'isValidElement', 'PropTypes', 'createClass', 'createFactory', 
+    'createMixin', 'DOM', 'version'
+  ],
+  'node_modules/react-dom/index.js': [
+    'findDOMNode', 'render', 'unmountComponentAtNode', 'version'
+  ]
+};
+
 // Clean tasks
 gulp.task('clean:app', () =>
   gulp.src('public/js/build.min.js', { read: false })
@@ -23,7 +37,8 @@ gulp.task('build:app', [ 'clean:app' ], () =>
     entry: 'app/index.js',
     plugins: [
       eslint({ throwError: env === 'production', configFile: '.eslintrc' }),
-      resolve({ jsnext: true, browser: true }), commonjs(),
+      resolve({ jsnext: true, browser: true }),
+      commonjs({ namedExports: reactNamedExports }),
       babel({ exclude: 'node_modules/**' }),
       replace({
         ENV: env,
