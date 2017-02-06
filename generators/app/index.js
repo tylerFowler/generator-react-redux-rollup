@@ -70,8 +70,8 @@ module.exports = class GeneratorReactReduxRollup extends Generator {
     );
 
     this.fs.copyTpl(
-      this.templatePath('index.js'),
-      this.destinationPath('public/index.js'),
+      this.templatePath('index.html'),
+      this.destinationPath('public/index.html'),
       { title: this.props.appName }
     );
 
