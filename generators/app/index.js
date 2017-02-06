@@ -1,3 +1,4 @@
+const path      = require('path');
 const Generator = require('yeoman-generator');
 const chalk     = require('chalk');
 const yosay     = require('yosay');
@@ -13,7 +14,7 @@ module.exports = class GeneratorReactReduxRollup extends Generator {
         type: 'input',
         name: 'appName',
         message: "What's your application name?",
-        default: utils.yeoman.getAppName()
+        default: path.basename(process.cwd())
       }
     ];
 
