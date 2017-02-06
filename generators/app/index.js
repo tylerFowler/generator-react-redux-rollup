@@ -1,4 +1,3 @@
-/* eslint no-unused-vars:0 */
 const Generator = require('yeoman-generator');
 const chalk     = require('chalk');
 const yosay     = require('yosay');
