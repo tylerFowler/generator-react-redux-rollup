@@ -1,7 +1,5 @@
 const path      = require('path');
 const Generator = require('yeoman-generator');
-const chalk     = require('chalk');
-const yosay     = require('yosay');
 
 module.exports = class GeneratorReactReduxRollup extends Generator {
   constructor(args, opts) {
@@ -35,10 +33,6 @@ module.exports = class GeneratorReactReduxRollup extends Generator {
 
   install() {
     this.installDependencies({ bower: false });
-  }
-
-  end() {
-    yosay(chalk.green('All done! Run `gulp:build` to build the application.'));
   }
 
   writeDotfiles() {
