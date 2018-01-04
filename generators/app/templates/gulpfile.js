@@ -18,7 +18,7 @@ const env = JSON.stringify(process.env.NODE_ENV || 'development');
 const reactNamedExports = {
   'node_modules/react/react.js': [
     'Children', 'Component', 'PureComponent', 'createElement', 'cloneElement',
-    'isValidElement', 'PropTypes', 'createClass', 'createFactory', 
+    'isValidElement', 'PropTypes', 'createClass', 'createFactory',
     'createMixin', 'DOM', 'version'
   ],
   'node_modules/react-dom/index.js': [
@@ -29,7 +29,7 @@ const reactNamedExports = {
 // Clean tasks
 gulp.task('clean:app', () =>
   gulp.src('public/js/build.min.js', { read: false })
-  .pipe(clean())
+    .pipe(clean())
 );
 
 gulp.task('build:app', [ 'clean:app' ], () =>
